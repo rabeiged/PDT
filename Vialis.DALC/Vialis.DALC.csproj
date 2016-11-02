@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F92721FF-68B9-45D8-9E2F-AAD03DC40D4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vialis.DALC</RootNamespace>
+    <AssemblyName>Vialis.DALC</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Acta_reunion.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AFP.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asistencia.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Boleta.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categoria.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Comuna.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contrato.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cotizacion.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Descuento.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Detalle_boleta.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Detalle_cotizacion.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Detalle_participacion.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Empresa.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Etapa.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factura.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hito.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inspeccion_tecnica.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pago.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Participante.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persona.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Producto.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Provincia.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proyecto.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Region.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Registro_avance.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seguro_salud.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock_RRFF_EMPRESA.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock_RRFF_PROYECTO.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subcategoria.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sueldo.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tarea.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trabajador_asignado.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trabajador_empresa.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vialis.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vialis.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vialis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vialis.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vialis.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vialis.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Vialis.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Vialis.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="Vialis.edmx.diagram">
+      <DependentUpon>Vialis.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Vialis.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Vialis.edmx</DependentUpon>
+      <LastGenOutput>Vialis.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Vialis.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Vialis.edmx</DependentUpon>
+      <LastGenOutput>Vialis.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
