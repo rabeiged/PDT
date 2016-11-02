@@ -41,7 +41,7 @@ namespace Vialis.Negocio
             }
         }
         #endregion
-
+        
         #region Constructores
         public Cotizacion()
         {
