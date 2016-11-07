@@ -153,25 +153,26 @@ namespace Vialis.Negocio
                 return false;
             }
 
-
-            #endregion
-
         }
+        #endregion
 
-        /*
+
+
+
         public bool Buscar()
         {
             try
             {
                 Vialis.DALC.Trabajador_empresa tra_emp = ConectorDALC.ModeloVialis.Trabajador_empresa.First
                     (
-                        p => p.id_trabajador == this.Id_trabajador
+                        p => p.Persona_run == this.Per.Run
                     );
 
-                this
-
-
-
+                this.Id_trabajador_empre = tra_emp.id_trabajador;
+                this.Oficio_profesion = tra_emp.oficio_profesion;
+                this.Per.Run = tra_emp.Persona_run;
+                this.Rol = tra_emp.rol;                 
+                
                 return true;
 
             }
@@ -182,6 +183,6 @@ namespace Vialis.Negocio
             }
             
         }
-    */
+
     }
 }

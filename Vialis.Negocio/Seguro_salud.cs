@@ -50,7 +50,7 @@ namespace Vialis.Negocio
         {
 
         }
-           
+
 
         public Seguro_salud(int id_ss, string nom_ss)
         {
@@ -68,12 +68,55 @@ namespace Vialis.Negocio
             {
                 Seguro_salud s = new Negocio.Seguro_salud();
                 s.Id_seguro_sald = (int)seg.id_seguro_sald;
-                s.Nombre_seg_sald = seg.nombre_seg_sald;
+                s.Nombre_seg_sald = seg.nombre_seg_sald.ToUpper();
                 resultado.Add(s);
 
             }
             return resultado;
         }
+
+        public IList<Seguro_salud> Listar_segursalud_por_id(string run)
+        {
+            List<Seguro_salud> resultado = new List<Seguro_salud>();
+            foreach (Vialis.DALC.Descuento de in ConectorDALC.ModeloVialis.Descuento.ToList())
+            {
+
+                if (de.Persona_run.CompareTo(run) == 0)
+                {
+                    Seguro_salud ss = new Negocio.Seguro_salud();
+                    ss.Id_seguro_sald = (int)de.id_seguro_sald;
+                    ss.Nombre_seg_sald = de.Seguro_salud.nombre_seg_sald.ToUpper();
+                    resultado.Add(ss);
+                    break;
+                }
+
+            }
+            return resultado;
+        }
+
+        public bool Buscar()
+        {
+            try
+            {
+                Vialis.DALC.Seguro_salud ss = ConectorDALC.ModeloVialis.Seguro_salud.First
+                    (
+                        s => s.id_seguro_sald == this.Id_seguro_sald
+                    );
+
+                this.Id_seguro_sald = ss.id_seguro_sald;
+                this.Nombre_seg_sald = ss.nombre_seg_sald;
+
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         #endregion
 
     }

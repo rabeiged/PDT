@@ -28,20 +28,22 @@ namespace Vialis.RRHH.UC.Trabajador
             {
 
                 #region Variables
-                
+
                 double porcafp = 0;
                 double porcsalud = 0;
+                string run = txtRun.Text.Trim();
+                string nombre = txtNombre.Text.Trim();
+                string apellidop = txtApellidoP.Text.Trim();
+                string apellidom = txtApellidoM.Text.Trim();
+                string direccion = txtDireccion.Text.Trim();
+
                 string sexo = string.Empty;
                 string flag = string.Empty;
                 int comuna = 0;
                 int afp = 0;
                 int salud = 0;
-                string run = string.Empty;
-                string nombre = txtNombre.Text.Trim();
-                string apellidop = txtApellidoP.Text.Trim();
-                string apellidom = txtApellidoM.Text.Trim();
-                string direccion = txtDireccion.Text.Trim();
-                
+
+
                 string ecivil = string.Empty;
                 string ofipro = string.Empty;
                 DateTime fec_nac = dtpFecha_nacimiento.Value;
@@ -49,18 +51,8 @@ namespace Vialis.RRHH.UC.Trabajador
                 #endregion
 
                 #region Validaciones
-                Validaciones v = new Validaciones();
 
-                //Valida rut.
-                if (v.ValidarRun(txtRun.Text.ToString().Trim()))
-                {
-                    run = txtRun.Text.ToString().Trim();
 
-                }
-                else
-                {
-                    flag = "Rut.";
-                }
 
                 //Valida comuna seleccionada.
                 if (int.Parse(cmbComuna.SelectedValue.ToString()) < 0)
@@ -108,7 +100,7 @@ namespace Vialis.RRHH.UC.Trabajador
                     flag = "Estado Civil.";
                 }
                 else
-                { 
+                {
                     //Para manipular los datos del cmbx que no esta conectado a la base de datos, se puede tomar el "objeto" completo.
                     ecivil = cmbEstadoCivil.SelectedItem.ToString();
                 }
@@ -133,33 +125,12 @@ namespace Vialis.RRHH.UC.Trabajador
                     salud = int.Parse(cmbSalud.SelectedValue.ToString());
                 }
 
-                //Valida que campo % Afp, sea un %.
-                if (double.TryParse(txtPorcAFP.Text.ToString(), out porcafp))
-                {
-                    porcafp = Convert.ToDouble(txtPorcAFP.Text.ToString());
-                }
-                else
-                {
-                    flag = "% de descuento AFP [n,n]";
-                }
-
-                //Valida que campo % Seguro de salud, sea un %
-                if (double.TryParse(txtPorcSalud.Text.ToString(), out porcafp))
-                {
-                    porcsalud = Convert.ToDouble(txtPorcSalud.Text.ToString());
-                }
-                else
-                {
-                    flag = "% de descuento Salud [n,n]";
-                }
-
-
 
 
 
                 #endregion
 
-                
+
                 //flag captura el campo con problemas, si no hay nada en flag, comienza a construir los objetos.
                 if (String.IsNullOrEmpty(flag))
                 {
@@ -171,7 +142,7 @@ namespace Vialis.RRHH.UC.Trabajador
 
                         if (objTrab.Crear())
                         {
-                            Descuento objDescuento = new Descuento(porcsalud,porcafp, salud, afp, objTrab);
+                            Descuento objDescuento = new Descuento(porcsalud, porcafp, salud, afp, objTrab);
                             if (objDescuento.Crear())
                             {
                                 MessageBox.Show("Trabajador ingresado con exito.");
@@ -200,34 +171,17 @@ namespace Vialis.RRHH.UC.Trabajador
             }
             catch (Exception)
             {
-                throw;
-            } 
+                MessageBox.Show("Complete los datos solicitados");
+            }
         }
 
 
         /// <summary>
-        /// Metodo que rellena los comboBox.
+        /// Metodo que rellena los comboBox que no tienen conexion con la BD
         /// </summary>
         /// 
-
         public void RellenarCmbx()
         {
-            //El nombre de los cambios en display y value member debe ser el definido en la clase. 
-            Negocio.Region r = new Negocio.Region();
-            cmbRegion.DataSource = r.Listar();
-            cmbRegion.DisplayMember = "nombre_region";
-            cmbRegion.ValueMember = "id_region";
-
-
-            Negocio.Afp a = new Negocio.Afp();
-            cmbAfp.DataSource = a.Listar();
-            cmbAfp.DisplayMember = "nombre_afp";
-            cmbAfp.ValueMember = "id_AFP";
-
-            Negocio.Seguro_salud s = new Negocio.Seguro_salud();
-            cmbSalud.DataSource = s.Listar();
-            cmbSalud.DisplayMember = "nombre_seg_sald";
-            cmbSalud.ValueMember = "id_seguro_sald";
 
             cmbEstadoCivil.Items.Add("SOLTERO");
             cmbEstadoCivil.Items.Add("CASADO");
@@ -240,8 +194,9 @@ namespace Vialis.RRHH.UC.Trabajador
 
             cmbOficioprofesion.Items.Add("OBRERO");
             cmbOficioprofesion.Items.Add("OFICINISTA");
-
         }
+
+        #region Eventos
 
         private void cmbRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -260,6 +215,134 @@ namespace Vialis.RRHH.UC.Trabajador
             cmbComuna.DisplayMember = "nombre_comuna";
             cmbComuna.ValueMember = "id_comuna";
         }
+
+        private void cmbRegion_Click(object sender, EventArgs e)
+        {
+            //El nombre de los cambios en display y value member debe ser el definido en la clase. 
+            Negocio.Region r = new Negocio.Region();
+            cmbRegion.DataSource = r.Listar();
+            cmbRegion.DisplayMember = "nombre_region";
+            cmbRegion.ValueMember = "id_region";
+
+        }
+
+        private void cmbAFP_Click(object sender, EventArgs e)
+        {
+            Negocio.Afp a = new Negocio.Afp();
+            cmbAfp.DataSource = a.Listar();
+            cmbAfp.DisplayMember = "nombre_afp";
+            cmbAfp.ValueMember = "id_AFP";
+        }
+
+        private void cmbSalud_Click(object sender, EventArgs e)
+        {
+            Negocio.Seguro_salud s = new Negocio.Seguro_salud();
+            cmbSalud.DataSource = s.Listar();
+            cmbSalud.DisplayMember = "nombre_seg_sald";
+            cmbSalud.ValueMember = "id_seguro_sald";
+        }
+
+
+        private void txtRun_Validated(object sender, EventArgs e)
+        {
+            Validaciones v = new Validaciones();
+
+            if (!v.ValidarRun(txtRun.Text.ToString().Trim()))
+            {
+
+                epRun.SetError(txtRun, "Ingrese un Run valido.");
+                txtRun.Focus();
+            }
+            else
+            {
+                epRun.Clear();
+            }
+        }
+
+        private void txtNombre_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtNombre.Text))
+            {
+                epNombre.SetError(txtNombre, "Ingrese Nombre.");
+
+            }
+            else
+            {
+                epNombre.Clear();
+            }
+        }
+
+        private void txtApellidoP_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtApellidoP.Text))
+            {
+                epNombre.SetError(txtApellidoP, "Ingrese Apellido.");
+
+            }
+            else
+            {
+                epApParterno.Clear();
+            }
+        }
+
+        private void txtApellidoM_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtApellidoM.Text))
+            {
+                epNombre.SetError(txtApellidoM, "Ingrese Apellido.");
+
+            }
+            else
+            {
+                epApMaterno.Clear();
+
+            }
+        }
+
+        private void txtDireccion_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtDireccion.Text))
+            {
+                epDireccion.SetError(txtDireccion, "Ingrese Direccion.");
+
+            }
+            else
+            {
+                epDireccion.Clear();
+
+            }
+        }
+
+        private void txtPorcAFP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                epPorcAFP.SetError(txtPorcAFP, "Ingrese descuento de AFP. EJ: 1,3");
+                txtPorcAFP.Focus();
+
+            }
+            else
+            {
+                epPorcAFP.Clear();
+            }
+        }
+
+        private void txtPorcSalud_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                epPorcSalud.SetError(txtPorcSalud, "Ingrese descuento de Salud. EJ: 1,3");
+                txtPorcSalud.Focus();
+
+            }
+            else
+            {
+                epPorcSalud.Clear();
+            }
+        }
+
+
+        #endregion
 
 
     }

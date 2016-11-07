@@ -65,6 +65,8 @@ namespace Vialis.Negocio
             this.Id_asginacion = 0;
             this.Responsabilidad = string.Empty;
         }
+
+
         #endregion
     }
 }

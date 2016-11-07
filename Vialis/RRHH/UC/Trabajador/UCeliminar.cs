@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vialis.Negocio;
 
 namespace Vialis.RRHH.UC.Trabajador
 {
@@ -22,6 +23,7 @@ namespace Vialis.RRHH.UC.Trabajador
             try
             {
                 string run = txtRut.Text;
+                
 
                 //llamamos metodo read
                 //llenamos con lo retornado
@@ -37,6 +39,12 @@ namespace Vialis.RRHH.UC.Trabajador
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             string run = txtRut.Text;
+            Persona per = new Persona();
+            per.Run = run;
+            per.Buscar();
+
+            per.Eliminar();
+            
             //le enviamos la variable con el run al metodo DELETE
         }
     }

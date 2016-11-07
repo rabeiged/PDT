@@ -77,6 +77,30 @@ namespace Vialis.Negocio
 
         #region Metodos
 
+        public bool Buscar()
+        {
+
+            try
+            {
+                Vialis.DALC.Provincia pro = ConectorDALC.ModeloVialis.Provincia.First
+                    (
+                        p => p.id_provincia == this.Id_provincia
+                    );
+
+                this.Id_provincia = (int)pro.id_provincia;
+                this.Nombre_provincia = pro.nombre_provincia;
+                this.Region = (int)pro.id_region;
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        
+        }
+
         public IList<Provincia> Listar(int idRegion)
         {
            

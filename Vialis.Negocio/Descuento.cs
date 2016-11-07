@@ -11,11 +11,10 @@ namespace Vialis.Negocio
     {
         #region Campos
         private int _id_seguro_salud, _id_afp, _id_descuento;
+        private string _run;
         private double _porcentaje_descuento_salud;
         private double _porcentaje_descuento_afp;
         private Trabajador_empresa _trabEmpre;
-
-
 
         #endregion
 
@@ -100,6 +99,20 @@ namespace Vialis.Negocio
             }
         }
 
+        public string Run
+        {
+            get
+            {
+                return _run;
+            }
+
+            set
+            {
+                _run = value;
+            }
+        }
+
+
         #endregion
 
 
@@ -161,13 +174,14 @@ namespace Vialis.Negocio
 
         }
 
+        
         public bool Buscar()
         {
             try
             {
                 Vialis.DALC.Descuento desc = ConectorDALC.ModeloVialis.Descuento.First
                     (
-                        d => d.Persona_run == this.TrabEmpre.Per.Run
+                        d => d.Persona_run == this.Run
                     );
 
                 this.Id_descuento = desc.id_descto;
@@ -176,9 +190,8 @@ namespace Vialis.Negocio
                 this.Porcentaje_descuento_salud = (float)desc.porc_descto_salud;
                 this.Id_afp = (int)desc.id_AFP;
                 this.Id_seguro_salud = (int)desc.id_seguro_sald;
-                this.TrabEmpre.Per.Run = desc.Trabajador_empresa.Persona_run;
-                this.TrabEmpre.Id_trabajador_empre = desc.Trabajador_empresa.id_trabajador;
-
+                this.Run = desc.Persona_run;
+                this.Id_descuento = (int)desc.id_trabajador;
                 return true;
 
             }
@@ -188,6 +201,7 @@ namespace Vialis.Negocio
                 return false;
             }
         }
+        
 
         #endregion
     }

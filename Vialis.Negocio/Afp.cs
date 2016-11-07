@@ -10,8 +10,8 @@ namespace Vialis.Negocio
     {
         #region Campos
         private string _nombre_afp;
-        private int _id_afp;
-
+        private int _id_afp, _id_descuento;
+        private Descuento _des;
         #endregion
 
         #region Propiedades
@@ -42,6 +42,34 @@ namespace Vialis.Negocio
                 _id_afp = value;
             }
         }
+
+        public int Id_descuento
+        {
+            get
+            {
+                return _id_descuento;
+            }
+
+            set
+            {
+                _id_descuento = value;
+            }
+        }
+
+        public Descuento Des
+        {
+            get
+            {
+                return _des;
+            }
+
+            set
+            {
+                _des = value;
+            }
+        }
+
+
         #endregion
 
         #region Constructores
@@ -73,12 +101,54 @@ namespace Vialis.Negocio
             {
                 Afp a = new Negocio.Afp();
                 a.Id_afp = (int)af.id_AFP;
-                a.Nombre_afp = af.nombre_afp;
+                a.Nombre_afp = af.nombre_afp.ToUpper();
                 resultado.Add(a);
                 
             }
             return resultado;
         }
+
+        public IList<Afp> Listar_afp_por_id(string run)
+        {
+            List<Afp> resultado = new List<Afp>();
+            foreach (Vialis.DALC.Descuento de in ConectorDALC.ModeloVialis.Descuento.ToList())
+            {
+                
+                if (de.Persona_run.CompareTo(run) == 0)
+                {
+                    Afp a = new Negocio.Afp();
+                    a.Id_afp = (int)de.id_AFP;
+                    a.Nombre_afp = de.AFP.nombre_afp.ToUpper();
+                    resultado.Add(a);
+                    break;
+                }
+
+            }
+            return resultado;
+        }
+
+        public bool Buscar()
+        {
+            try
+            {
+                Vialis.DALC.AFP af = ConectorDALC.ModeloVialis.AFP.First
+                    (
+                        a => a.id_AFP == this.Id_afp
+                    );
+
+                this.Id_afp = af.id_AFP;
+                this.Nombre_afp = af.nombre_afp;
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         #endregion
 
     }

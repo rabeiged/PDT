@@ -233,6 +233,7 @@ namespace Vialis.Negocio
                     (
                         p => p.Persona_run == this.Run
                     );
+
                 this.Run = perso.Persona_run;
                 this.Nombre = perso.Persona_nombre;
                 this.Apellido_paterno = perso.Persona_apellido_paterno;

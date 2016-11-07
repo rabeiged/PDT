@@ -40,5 +40,7 @@ namespace Vialis.Negocio
             return validacion;
         }
         #endregion
+
     }
+
 }

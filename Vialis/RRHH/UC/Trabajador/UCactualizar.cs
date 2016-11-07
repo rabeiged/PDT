@@ -15,7 +15,7 @@ namespace Vialis.RRHH.UC.Trabajador
     {
         public UCactualizar()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
 
@@ -27,19 +27,43 @@ namespace Vialis.RRHH.UC.Trabajador
                 string runBusqueda = txtRunBusqueda.Text;
                 Persona per = new Persona();
                 per.Run = runBusqueda;
-                per.Buscar();
+                if (per.Buscar())
+                {
+                    Descuento d = new Descuento();
+                    d.Buscar();
 
-                txtRun.Text = per.Run;
-                txtNombre.Text = per.Nombre;
-                txtApellidoP.Text = per.Apellido_paterno;
-                txtApellidoM.Text = per.Apellido_materno;
-                cmbSexo.ValueMember = per.Sexo.ToString();
-                cmbEstadoCivil.ValueMember = per.Estado_civil.ToString();
-                txtDireccion.Text = per.Direccion;
 
-                rellenar_cmb_ubicacion_por_busqueda(per);
+                    txtRun.Text = per.Run;
+                    txtNombre.Text = per.Nombre;
+                    txtApellidoP.Text = per.Apellido_paterno;
+                    txtApellidoM.Text = per.Apellido_materno;
+                    txtDireccion.Text = per.Direccion;
 
-                
+                    cmbEstadoCivil.Items.Add(per.Estado_civil.ToString());
+                    cmbEstadoCivil.SelectedIndex = 0;
+
+                    if (per.Sexo.CompareTo("F") == 0)
+                    {
+                        cmbSexo.Items.Add("FEMENINO");
+                        cmbSexo.SelectedIndex = 0;
+                    }else
+                    {
+                        cmbSexo.Items.Add("MASCULINO");
+                        cmbSexo.SelectedIndex = 0;
+                    }
+
+
+                    Rellenar_cmb_ubicacion_por_busqueda(per);
+                    Rellenar_cmbAfp_por_run(per.Run);
+                    Rellenar_cmbSegsalud_por_run(per.Run);
+                    
+
+                }
+                else
+                {
+                    MessageBox.Show("Trabajador no ha esta registrado en sistema.");
+                }
+
             }
             catch (Exception ex)
             {
@@ -124,8 +148,9 @@ namespace Vialis.RRHH.UC.Trabajador
             cmbProvidencia.ValueMember = "id_provincia";
         }
 
-        private void cmb_region_click(object sender, EventArgs e)
+        private void cmbRegion_Click(object sender, EventArgs e)
         {
+
             //si el usuario desea cambiar la ubicacion geo. tendra que hacerle click al combobox
             //por lo tanto se resetearan los datos para que los ingrese y pueda actualizar
             //El nombre de los cambios en display y value member debe ser el definido en la clase.
@@ -135,16 +160,42 @@ namespace Vialis.RRHH.UC.Trabajador
             cmbRegion_.DisplayMember = "nombre_region";
             cmbRegion_.ValueMember = "id_region";
 
+        }
 
+        private void cmbAfp_Click(object sender, EventArgs e)
+        {
             Negocio.Afp a = new Negocio.Afp();
             cmbAfp.DataSource = a.Listar();
             cmbAfp.DisplayMember = "nombre_afp";
             cmbAfp.ValueMember = "id_AFP";
+        }
 
+        private void cmbSalud_Click(object sender, EventArgs e)
+        {
             Negocio.Seguro_salud s = new Negocio.Seguro_salud();
             cmbSalud.DataSource = s.Listar();
             cmbSalud.DisplayMember = "nombre_seg_sald";
             cmbSalud.ValueMember = "id_seguro_sald";
+        }
+
+        private void cmbEstadoCivil_Click(object sender, EventArgs e)
+        {
+            cmbEstadoCivil.Items.Clear();
+
+            cmbEstadoCivil.Items.Add("SOLTERO");
+            cmbEstadoCivil.Items.Add("DIVORSIADO");
+            cmbEstadoCivil.Items.Add("VIUDO");
+            cmbEstadoCivil.Items.Add("CASADO");
+            cmbEstadoCivil.Items.Add("SEPARADO");
+     
+
+        }
+
+        private void cmbSexo_Click(object sender, EventArgs e)
+        {
+            cmbSexo.Items.Clear();
+            cmbSexo.Items.Add("MASCULINO");
+            cmbSexo.Items.Add("FEMENINO");
         }
 
         #endregion
@@ -153,7 +204,7 @@ namespace Vialis.RRHH.UC.Trabajador
 
 
         #region Metodos
-        private void rellenar_cmb_ubicacion_por_busqueda(Persona per)
+        private void Rellenar_cmb_ubicacion_por_busqueda(Persona per)
         {
             Negocio.Region reg = new Negocio.Region();
             cmbRegion_.DataSource = reg.Listar_region_por_idcomuna(per.Comuna);
@@ -171,42 +222,41 @@ namespace Vialis.RRHH.UC.Trabajador
             cmbComuna.ValueMember = "id_comuna";
         }
 
+        private void Rellenar_cmbSegsalud_por_run(string run)
+        {
+            Negocio.Seguro_salud s = new Negocio.Seguro_salud();
+            cmbSalud.DataSource = s.Listar_segursalud_por_id(run);
+            cmbSalud.DisplayMember = "nombre_seg_sald";
+            cmbSalud.ValueMember = "id_seguro_sald";
+        }
+
+        private void Rellenar_cmbAfp_por_run(string run)
+        {
+
+            Negocio.Afp a = new Negocio.Afp();
+            cmbAfp.DataSource = a.Listar_afp_por_id(run);
+            cmbAfp.DisplayMember = "nombre_afp";
+            cmbAfp.ValueMember = "id_afp";
+        }
+
+
+
+        //NO LO HICE PORQUE CORRESPONDE A UNA TABLA MAS  Y NO LA HEMOS AGREGADO A LA BD.
+        /*
         public void RellenarCmbx()
         {
-            //despues hay que separar estos rellenos de cmb, para cada click que se le haga cuando desee cambiar los
-            //datos originales
-            cmbEstadoCivil.Items.Add("SOLTERO");
-            cmbEstadoCivil.Items.Add("CASADO");
-            cmbEstadoCivil.Items.Add("DIVORSIADO");
-            cmbEstadoCivil.Items.Add("VIUDO");
-
-
-            cmbSexo.Items.Add("MASCULINO");
-            cmbSexo.Items.Add("FEMENINO");
 
             cmbOficioprofesion.Items.Add("OBRERO");
             cmbOficioprofesion.Items.Add("OFICINISTA");
         }
 
+
+    */
         #endregion
 
+        private void txtRunBusqueda_TextChanged(object sender, EventArgs e)
+        {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
     }
 }

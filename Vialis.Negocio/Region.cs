@@ -11,6 +11,7 @@ namespace Vialis.Negocio
         #region Campos
         private int _id_region;
         private string _nombre_region;
+        private int _id_provincia;
 
         #endregion
 
@@ -39,6 +40,19 @@ namespace Vialis.Negocio
             set
             {
                 _nombre_region = value;
+            }
+        }
+
+        public int Id_provincia
+        {
+            get
+            {
+                return _id_provincia;
+            }
+
+            set
+            {
+                _id_provincia = value;
             }
         }
 
@@ -81,8 +95,6 @@ namespace Vialis.Negocio
             return resultado;
         }
 
-
-
         public IList<Region> Listar_region_por_idcomuna(int id_comuna)
         {
             Comuna com = new Comuna();
@@ -112,6 +124,26 @@ namespace Vialis.Negocio
 
                         }                        
                     }  
+                }
+            }
+            return resultado;
+        }
+
+        public IList<Region> Listar_region_por_idprov(int id_prov)
+        {
+            Provincia pro = new Provincia();
+            pro.Id_provincia = id_prov;
+            pro.Buscar();
+            List<Region> resultado = new List<Region>();
+            foreach (Vialis.DALC.Region re in ConectorDALC.ModeloVialis.Region.ToList())
+            {
+                if (re.id_region == pro.Region)
+                {
+                    Region r = new Negocio.Region();
+                    r.Id_region = (int)re.id_region;
+                    r.Nombre_region = re.nombre_region;
+                    resultado.Add(r);
+                    break;
                 }
             }
             return resultado;
